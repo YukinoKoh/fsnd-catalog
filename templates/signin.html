@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row"><div class="col-12">
+    <h1 class="main">{{ meta_title }}</h1>
+    <h2 class="main"> To add new, edit, or delete the posts, connect with Facebook.</h2> 
+    <a href="#" onclick="fb_login();">
+      <div class="button-login">Sign in with Facebook</div>
+    </a>
+    <div id="result"></div>
+
+  </div></div>
+</div>
+<div id="fb-root"></div>
+<!--FACEBOOK SIGN IN -->
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId: '130891800964673',
+      cookie: true,  // enable cookies to allow the server to access 
+      xfbml: true,  // parse social plugins on this page
+      version: 'v2.8' // use version 2.8
+    });
+  };
+  function fb_login(){
+    FB.login(function(response) {
+      if (response.authResponse) {
+        console.log('Welcome!  Fetching your information.... ');
+        //console.log(response); // dump complete info
+        var access_token = response.authResponse.accessToken; //get access token
+        console.log(access_token);
+        var user_id = response.authResponse.userID; //get FB UID
+        console.log(user_id);
+        FB.api('/me', function(response) {
+          console.log(response.name);
+          $.ajax({
+            type: 'POST',
+            url: '/fbsignin',
+            processData: false,
+            data: access_token,
+            contentType: 'application/octet-stream; charset=utf-8',
+            success: function(result) {
+              // Handle or verify the server response if necessary.
+              if (result) {
+                $('#result').html('Login Successful!</br>'+ result)
+                window.location.href = "/";
+              } else {
+                $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+              }
+            }  
+          });
+        });
+      } else {
+        //user hit cancel button
+        console.log('User cancelled login or did not fully authorize.');
+      }
+    },
+    {
+      scope: 'public_profile, email'
+    });
+  }  
+
+  (function() {
+    var e = document.createElement('script');
+    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+    e.async = true;
+    document.getElementById('fb-root').appendChild(e);
+  }());
+
+</script>
+<!--END FACEBOOK SIGN IN -->
+
+
+{% endblock %}
+

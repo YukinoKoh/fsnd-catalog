@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container">
+    <div class="row"><div class="col-12">
+      {% if watning !='' %}
+        <div class="form-warning">{{ warning }}</div>
+      {% endif %}
+    </div></div>
+  </div>
+
+  <div class="container">
+      <div class="row">
+        <div class="col-sm-12 form-style-b">
+          <form action="/{{ category.name.lower() }}/{{ option.id }}/edit" method='post'>
+            <label class="{{ category.name.lower() }}">Research Option </label>
+            <input class="form-style-b-h1" type='text' name='name' value="{{ option.name }}" onchange="changeColor('submit')" >
+            <label class="{{ category.name.lower() }}">Category </label>
+            <select name='cat' class="form-select" onchange="changeColor('submit')">
+              {% for category in categories %}
+                <option value="{{ category.id }}" 
+                {% if category.id == option.cat_id %} 
+                  selected
+                {% endif %}
+                > {{ category.name }} </option>
+              {% endfor %}
+            </select>
+            <label class="{{ category.name.lower() }}">Description</label>
+            <textarea name='description' onchange="changeColor('submit')">{{ option.description }}</textarea>
+            <label class="{{ category.name.lower() }}">Link</label> 
+            <ul>
+            {% for link in links %}
+            <li>
+            <a class="ml-90p form-delete-link" href="/{{ category.name }}/{{ option.id }}/{{ link.id }}/delete"><small>[delete]</small></a>
+            <input class="form-style-b-link" type='text' name='link-{{ link.id }}' value="{{ link.title }}" onchange="changeColor('submit')" >
+            <input class="form-style-b-url" type='text' name='linkUrl-{{ link.id }}' value="{{ link.url }}" onchange="changeColor('submit')" >
+            </li>
+            {% endfor %}
+            </ul>
+            <div class="sub" data-toggle="modal" data-target="#linkModal">+ Add link</div>
+            <input id='submit' type='submit' value='Save and update' class='btn-save btn-sub'>
+            <a href='/{{ category.name.lower() }}/{{ option.id }}' class="sub">Cancel</a>
+          </form>
+        </div>
+      </div>
+     <!-- Modal -->
+     <div class="modal fade" id="linkModal" role="dialog">
+       <div class="modal-dialog">
+       <!-- Modal content-->
+         <div class="modal-content">
+           <div class="modal-header1 bb-{{ category.name.lower() }}">
+             <div class="{{ category.name.lower() }}">New link</div>              
+          </div>
+          <div class="modal-body form-style-a">
+            <form action="/{{ category.name.lower() }}/{{ option.id }}/newlink" method='post'>
+              <label>Link name: </label><input type='text' name='link'>
+              <label>Url: </label><input type='text' name='url'>
+              <div data-dismiss="modal" class="f-right pt-20 ml-20 sub">Cancel</div>
+              <input id='submit' type='submit' value='Add link' class='f-right btn-save bg-{{ category.name.lower() }}'>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+<script>
+  function changeColor(id){
+    var x = document.getElementById(id);
+    x.classList.remove('bg-sub');
+    x.classList.add('bg-{{ category.name.lower() }}');
+}
+</script>
+
+{% endblock %}

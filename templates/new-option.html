@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <div class="row"><div class="col-12">
+    <h1 class="main {{ category.name.lower() }}">{{ category.name }}</h1>
+    {% if watning !='' %}
+      <div class="form-warning">{{ warning }}</div>
+    {% endif %}
+    <div class="form-style-a">
+      <form action="/{{ category.name }}/new" method = 'POST'>
+        <label>Research option name</label>
+          <input type='text' name='name'>
+        <label>Description</label>
+          <textarea  name='description'></textarea>
+        
+        <div class="form-button-section">
+          <input type='submit' value='Add' class="btn-submit bg-{{ category.name.lower() }} hover-{{ category.name.lower() }}">
+          <a href='/{{ category.name }}' class="sub">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div></div>
+</div>
+
+{% endblock %}

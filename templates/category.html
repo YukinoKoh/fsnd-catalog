@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container">
+    <div class="row"><div class="col-12">
+      <h1 class="main {{ category.name.lower() }}">{{ category.name }}</h1>
+      <h2 class="main">
+        {{ category.description }}
+      </h2>
+      {% if log =='True' %}
+        <a href="/{{ category.name.lower() }}/new"><div class="btn-action btn-plus bg-{{ category.name.lower() }}">+</div></a>
+      {% endif %}
+    </div></div>
+  </div>
+
+  <div class="container">
+    <div class="row option-title {{ category.name.lower() }} bb-{{ category.name.lower() }}">
+      <div class="col-sm-4">Option</div>
+      <div class="col-sm-8 hidden-sm">Description</div>
+    </div>
+    {% for i in options %}
+      <div class="row option-list">
+        <div class="col-sm-4 option-name">
+          <a href="/{{ category.name.lower() }}/{{ i.id }}">
+            {{ i.name }}
+          </a>
+        </div>
+        <div class="col-sm-8 option-desc hidden-sm">
+          {{ i.description }}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

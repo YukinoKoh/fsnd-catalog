@@ -1,0 +1,25 @@
+  <div class="container">
+    <div class="row option-title {{ category.name.lower() }} bb-{{ category.name.lower() }}">
+      <div class="col-xs-12">Option</div>
+    </div>
+    <form action="/{{ category.name.lower() }}/{{ option.name.lower() }}/edit" method='post'>
+        {% for i in options %}
+          <div class="row option-list"><div class="col-xs-12 option-name">
+            <label class="checkbox-container">{{ i.name }}
+              <input type="checkbox" name="option" value="{{i.id}}">
+              <span class="checkbox-mark"></span>
+            </label>
+          </div></div>
+        {% endfor %}
+          <div class="row form-button-section"><div class="col-xs-12">
+            <input type='submit' value='Delete' class="btn-submit bg-danger">
+            <a href='/{{ category.name }}' class="sub">Cancel</a>
+          </div></div>
+    </form>
+  </div>
+  <script>
+    function show_alert(){
+      alert('Do you want to delete?');
+    }
+  </script>
+

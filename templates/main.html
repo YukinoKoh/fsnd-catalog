@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container">
+    <div class="row"><div class="col-12">
+      <h1 class="main">{{ meta_title }}</h1>
+      <h2 class="main">
+        This site introduces design research options to remind alternative ways to tackle problems during projects.<br>
+        To sort the options for now, I referred 6 categories, suggested in <a href="https://www.thefieldstudyhandbook.com/"><i>The Field Study Handbook </i>by Jan Chipchase.</a>
+      </h2>
+   </div></div>
+  </div>
+  <div class="container">
+    <div class="row no-gutter">
+      {% for i in categories %}
+      <div class="col-card">
+        <a href="/{{ i.name.lower() }}">
+          <div class="card-shape {{ i.name.lower() }} b-{{ i.name.lower() }} hb-{{ i.name.lower() }}">
+            <div class="card-title">
+              {{ i.name }}
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
