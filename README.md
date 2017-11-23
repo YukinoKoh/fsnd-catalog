@@ -9,11 +9,6 @@ Project: build an catalog application
 - `initial_json.py`: sample - import data via JSON
 - `templates`: html templates folder for flask
 - `static`: static folder which includes js, css, img for flask
-- `Gruntfile.js`: Grunt file to convert SCSS to CSS
-- `Gruntfile.yml`: Same as the above
-- `package-lock.json`: npm package for Grunt usage
-- `package.json`: Same as the above
-- `node_modules`: Same as the above
 
 
 ## DB structure
